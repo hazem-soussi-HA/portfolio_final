@@ -1,156 +1,171 @@
+import { useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
+import { ArrowDown, Terminal } from 'lucide-react'
 
-const HeroSection = () => {
+function MatrixRain() {
+  const canvasRef = useRef(null)
+
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+    let animId
+
+    const resize = () => {
+      canvas.width = window.innerWidth
+      canvas.height = window.innerHeight
+    }
+    resize()
+    window.addEventListener('resize', resize)
+
+    const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン'
+    const fontSize = 14
+    const columns = Math.floor(canvas.width / fontSize)
+    const drops = Array(columns).fill(1)
+
+    const draw = () => {
+      ctx.fillStyle = 'rgba(3, 7, 18, 0.05)'
+      ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+      ctx.fillStyle = '#00ff4115'
+      ctx.font = `${fontSize}px monospace`
+
+      for (let i = 0; i < drops.length; i++) {
+        const char = chars[Math.floor(Math.random() * chars.length)]
+        ctx.fillText(char, i * fontSize, drops[i] * fontSize)
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0
+        }
+        drops[i]++
+      }
+      animId = requestAnimationFrame(draw)
+    }
+    draw()
+
+    return () => {
+      cancelAnimationFrame(animId)
+      window.removeEventListener('resize', resize)
+    }
+  }, [])
+
+  return <canvas ref={canvasRef} className="matrix-rain-canvas" aria-hidden="true" />
+}
+
+export default function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-6">
-      {/* Animated background */}
-      <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cloud-blue/10 rounded-full blur-[120px] animate-pulse-slow" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-cloud-cyan/10 rounded-full blur-[100px] animate-pulse-slow" style={{ animationDelay: '2s' }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cloud-blue/5 rounded-full blur-[150px]" />
+    <section
+      className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 sm:px-6"
+      aria-label="Hero"
+    >
+      <MatrixRain />
+
+      {/* Background glows */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div className="absolute top-1/4 left-1/4 w-72 h-72 sm:w-96 sm:h-96 bg-cyan/5 rounded-full blur-[120px] animate-pulse-slow" />
+        <div
+          className="absolute bottom-1/4 right-1/4 w-60 h-60 sm:w-80 sm:h-80 bg-matrix/5 rounded-full blur-[100px] animate-pulse-slow"
+          style={{ animationDelay: '2s' }}
+        />
       </div>
 
       {/* Grid pattern */}
-      <div className="absolute inset-0 opacity-[0.03]" style={{
-        backgroundImage: 'linear-gradient(rgba(0,112,243,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(0,112,243,0.3) 1px, transparent 1px)',
-        backgroundSize: '60px 60px'
-      }} />
+      <div
+        className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        style={{
+          backgroundImage:
+            'linear-gradient(rgba(0,212,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(0,212,255,0.3) 1px, transparent 1px)',
+          backgroundSize: '60px 60px',
+        }}
+        aria-hidden="true"
+      />
 
-      <div className="relative z-10 max-w-5xl mx-auto text-center">
+      <div className="relative z-10 max-w-4xl mx-auto text-center">
+        {/* Terminal prompt */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-6 sm:mb-8 text-xs sm:text-sm font-mono text-cyan"
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.6 }}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8 text-sm text-cloud-cyan">
-            <span className="w-2 h-2 bg-cloud-cyan rounded-full animate-pulse" />
-            Open to opportunities
-          </div>
+          <Terminal size={14} />
+          <span>shadow@hazoom-os ~ % whoami</span>
         </motion.div>
 
+        {/* Main heading */}
         <motion.h1
-          className="text-5xl md:text-7xl lg:text-8xl font-black leading-tight mb-6 tracking-tight"
+          className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black leading-[1.1] mb-4 sm:mb-6 tracking-tight"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          transition={{ duration: 0.7, delay: 0.15 }}
         >
-          <span className="gradient-text">Orchestrating</span>
+          <span className="text-white">Building</span>
           <br />
-          <span className="text-white">Scalable Realities</span>
+          <span className="gradient-text-cyan">Operating Systems</span>
+          <br />
+          <span className="text-white">& </span>
+          <span className="gradient-text-matrix">Digital Worlds</span>
         </motion.h1>
 
+        {/* Subtitle */}
         <motion.p
-          className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed"
+          className="text-base sm:text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed px-2"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
+          transition={{ duration: 0.7, delay: 0.3 }}
         >
-          Cloud Architect & DevOps Engineer transforming infrastructure complexity into performance.
+          Hazem Soussi — OS Architect, Game Developer & Full-Stack Engineer.
+          <br className="hidden sm:block" />
+          <span className="text-slate-500">Tunisie → Monde</span>
         </motion.p>
 
+        {/* CTA buttons */}
         <motion.div
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+          className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
+          transition={{ duration: 0.7, delay: 0.45 }}
         >
-          <a
-            href="#projects"
-            className="px-8 py-4 bg-gradient-to-r from-cloud-blue to-cloud-cyan rounded-xl font-semibold text-white hover:shadow-[0_0_40px_rgba(0,112,243,0.4)] transition-all duration-300 hover:-translate-y-0.5"
-          >
-            View My Work
+          <a href="#projects" className="btn-primary">
+            Voir mes projets
           </a>
-          <a
-            href="#contact"
-            className="px-8 py-4 glass rounded-xl font-semibold text-cloud-cyan hover:border-cloud-cyan/40 transition-all duration-300 hover:-translate-y-0.5"
-          >
-            Get in Touch
+          <a href="#contact" className="btn-secondary">
+            Me contacter
           </a>
         </motion.div>
 
-        {/* Photo with Premium Tech Effects */}
-        <div className="md:w-1/2 flex-1 flex items-center justify-center mt-10 mx-auto">
-          <motion.div
-            className="relative"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            {/* Parallax container with hover effect */}
-            <motion.div
-              className="relative w-64 h-64 md:w-80 md:h-80 bg-slate-800"
-              whileHover={{ x: -10, y: -10 }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            >
-              {/* Octagon image with mask */}
-              <motion.img
-                src="/hazem-hero.jpg"
-                alt="Hazem Soussi Graduation"
-                className="absolute inset-0 w-full h-full object-cover"
-                style={{
-                  clipPath: 'polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)',
-                  WebkitClipPath: 'polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)',
-                  filter: 'grayscale(100%) contrast(110%)',
-                  transition: 'filter 0.5s ease-in-out'
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.filter = 'grayscale(0%) contrast(100%)';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.filter = 'grayscale(100%) contrast(110%)';
-                }}
-                onError={(e) => {
-                  e.target.style.border = '2px solid red';
-                  e.target.style.backgroundColor = '#ffe6e6';
-                }}
-              />
-              
-              {/* Neon border effect */}
-              <div className="absolute inset-0" style={{
-                pointerEvents: 'none',
-                border: '2px solid #0070f3',
-                borderRadius: 'inherit',
-                WebkitMaskClip: 'text, border-box'
-              }}></div>
-              
-              {/* Electric blue halo effect */}
-              <div className="absolute inset-0" style={{
-                pointerEvents: 'none',
-                filter: 'blur(20px)',
-                background: 'radial-gradient(circle at center, #0070f3 0%, transparent 70%)',
-                opacity: '0.3'
-              }}></div>
-            </motion.div>
-            
-            {/* Glassmorphism badge */}
-            <div className="absolute bottom-4 right-4">
-              <div className="flex items-center gap-2 px-3 py-1.5 bg-white/20 backdrop-blur-sm rounded-xl border border-white/30 shadow-[0_0_15px_rgba(0,112,243,0.2)]">
-                <span className="text-xs font-medium text-cloud-cyan">Status:</span>
-                <span className="text-xs font-medium text-white">Ready to Deploy</span>
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-              </div>
+        {/* Stats bar */}
+        <motion.div
+          className="mt-12 sm:mt-16 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-2xl mx-auto"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.6 }}
+        >
+          {[
+            { value: 'HAZOOM OS', label: 'Operating System' },
+            { value: 'MARIO GTA6', label: 'Game Engine' },
+            { value: '8+', label: 'Languages' },
+            { value: '70+', label: 'Apps Built' },
+          ].map((stat) => (
+            <div key={stat.label} className="glass rounded-xl px-3 py-3 sm:p-4 text-center">
+              <div className="font-mono font-bold text-sm sm:text-base text-cyan">{stat.value}</div>
+              <div className="text-[10px] sm:text-xs text-slate-500 mt-1">{stat.label}</div>
             </div>
-          </motion.div>
-        </div>
+          ))}
+        </motion.div>
       </div>
 
       {/* Scroll indicator */}
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        animate={{ y: [0, 10, 0] }}
+        className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2"
+        animate={{ y: [0, 8, 0] }}
         transition={{ duration: 2, repeat: Infinity }}
       >
-        <div className="w-6 h-10 rounded-full border-2 border-slate-600 flex items-start justify-center p-1.5">
-          <motion.div
-            className="w-1.5 h-1.5 bg-cloud-blue rounded-full"
-            animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          />
-        </div>
+        <a href="#about" aria-label="Scroll to about section" className="flex flex-col items-center gap-2 text-slate-600 hover:text-cyan transition-colors">
+          <span className="text-[10px] font-mono uppercase tracking-widest">Scroll</span>
+          <ArrowDown size={16} />
+        </a>
       </motion.div>
     </section>
   )
 }
-
-export default HeroSection
