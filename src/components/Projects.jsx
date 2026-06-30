@@ -1,71 +1,86 @@
-import { motion } from 'framer-motion'
-import { devSecOpsProjects } from '../projects'
+import { Github, ExternalLink, Shield, Clock } from 'lucide-react';
 
-const Projects = () => {
+export default function Projects() {
+  const projects = [
+    {
+      title: 'AI Copilot Platform',
+      description: 'Chat interface with streaming responses, RAG integration, and multi-model support via OpenRouter.',
+      tags: ['React', 'AI', 'LLM'],
+      link: 'https://github.com/hazem-soussi-HA/ai-copilot',
+      status: 'Active',
+      securityStatus: 'Audited'
+    },
+    {
+      title: 'CodePilot',
+      description: 'AI-powered code review assistant using Ollama/Phi3 for real-time suggestions and security scanning.',
+      tags: ['Python', 'AI', 'Security'],
+      link: 'https://github.com/hazem-soussi-HA/codepilot',
+      status: 'Active',
+      securityStatus: 'Scanned'
+    },
+    {
+      title: 'Infrastructure Monitoring Dashboard',
+      description: 'Real-time metrics, alerting, and automated remediation for infrastructure.',
+      tags: ['Prometheus', 'Grafana', 'Go'],
+      link: 'https://github.com/hazem-soussi-HA/infragraph',
+      status: 'Active',
+      securityStatus: 'Hardened'
+    },
+    {
+      title: 'Omega Deploy',
+      description: 'Zero-downtime deployment platform with automatic rollback and health checks.',
+      tags: ['Kubernetes', 'DevOps', 'Go'],
+      link: 'https://github.com/hazem-soussi-HA/omega-deploy',
+      status: 'Active',
+      securityStatus: 'Encrypted'
+    }
+  ];
+
   return (
     <section id="projects" className="py-24 px-6 relative">
-      <div className="absolute inset-0">
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cloud-blue/20 to-transparent" />
-        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cloud-blue/20 to-transparent" />
-      </div>
-
       <div className="max-w-6xl mx-auto">
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="gradient-text">Case Studies</span>
-          </h2>
-          <p className="text-slate-500">Projects that define my expertise</p>
-        </motion.div>
+        <div className="text-center mb-16">
+          <p className="text-xs text-blue-400 font-mono uppercase tracking-widest mb-4">Portfolio</p>
+          <h2 className="text-5xl font-bold mb-4">Featured Projects</h2>
+          <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+            Architecting solutions that combine performance, security, and scalability
+          </p>
+        </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {devSecOpsProjects?.map((project, i) => (
-            <motion.div
-              key={project?.title ?? i}
-              className="glass glass-hover rounded-2xl p-8 flex flex-col justify-between group"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.15 }}
-              whileHover={{ y: -4 }}
-            >
-              <div>
-                <span className="text-xs font-medium text-cloud-cyan uppercase tracking-wider">{project?.tech ?? 'Infrastructure'}</span>
-                <h3 className="text-xl font-bold mt-2 mb-3">{project?.title}</h3>
-                <p className="text-sm text-slate-400 leading-relaxed">{project?.description}</p>
-                <div className="flex flex-wrap gap-2 mt-4">
-                  {project?.securityStatus && (
-                    <span className="px-2 py-0.5 border border-green-500/50 text-[10px] text-green-500 rounded-full font-mono">
-                      SEC: {project.securityStatus}
-                    </span>
-                  )}
-                  {project?.lastScan && (
-                    <span className="px-2 py-0.5 border border-slate-600/50 text-[10px] text-slate-400 rounded-full font-mono">
-                      SCAN: {project.lastScan}
-                    </span>
-                  )}
-                </div>
+        <div className="grid md:grid-cols-2 gap-6">
+          {projects.map((proj, idx) => (
+            <div key={idx} className="glass p-8 rounded-xl hover:glass-hover transition group">
+              <div className="flex justify-between items-start mb-4">
+                <h3 className="text-xl font-bold">{proj.title}</h3>
+                <Github size={20} className="text-slate-600 group-hover:text-blue-400 transition" />
               </div>
-              <div className="flex items-center justify-between mt-6">
-                <a
-                  href={project?.link ?? '#'}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs text-cloud-cyan hover:text-cloud-blue transition-colors font-mono"
-                >
-                  view_repo →
-                </a>
+              
+              <p className="text-slate-300 mb-4">{proj.description}</p>
+              
+              <div className="flex flex-wrap gap-2 mb-4">
+                {proj.tags.map((tag, i) => (
+                  <span key={i} className="text-xs px-2 py-1 bg-blue-500/20 text-blue-300 rounded">
+                    {tag}
+                  </span>
+                ))}
               </div>
-            </motion.div>
+
+              <div className="flex items-center gap-2 text-xs text-slate-400 mb-4">
+                <Shield size={14} /> {proj.securityStatus}
+              </div>
+
+              <a 
+                href={proj.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 transition"
+              >
+                View Project <ExternalLink size={14} />
+              </a>
+            </div>
           ))}
         </div>
       </div>
     </section>
-  )
+  );
 }
-
-export default Projects

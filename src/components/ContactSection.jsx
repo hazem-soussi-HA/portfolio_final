@@ -1,57 +1,52 @@
-import { motion } from 'framer-motion'
-import { Mail, Github, Linkedin, ExternalLink } from 'lucide-react'
+import { Github, Linkedin, Mail, ExternalLink } from 'lucide-react';
 
-const ContactSection = () => {
+export default function ContactSection() {
   return (
     <section id="contact" className="py-24 px-6 relative">
-      <div className="absolute inset-0">
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-cloud-blue/10 rounded-full blur-[120px]" />
-      </div>
-
-      <div className="max-w-3xl mx-auto text-center relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="text-4xl md:text-6xl font-bold mb-6">
-            Let's Build<br /><span className="gradient-text">Together</span>
-          </h2>
-          <p className="text-slate-400 text-lg mb-10 max-w-xl mx-auto">
-            Ready to transform your infrastructure? Let's connect and create something remarkable.
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-12">
+          <p className="text-xs text-blue-400 font-mono uppercase tracking-widest mb-4">Get In Touch</p>
+          <h2 className="text-5xl font-bold mb-4">Let's Build Something Great</h2>
+          <p className="text-slate-400 text-lg">
+            Open to discussing infrastructure challenges, DevOps optimization, and cloud architecture.
           </p>
+        </div>
 
-          <a
-            href="mailto:hazem.soussi@example.com"
-            className="inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-cloud-blue to-cloud-cyan rounded-2xl font-bold text-lg text-white hover:shadow-[0_0_60px_rgba(0,112,243,0.4)] transition-all duration-300 hover:-translate-y-1 glow"
-          >
-            <Mail size={22} />
-            Get in Touch
-          </a>
+        <div className="glass p-12 rounded-xl border border-blue-500/20">
+          <div className="flex flex-col md:flex-row gap-12 items-center justify-center">
+            <a 
+              href="https://github.com/hazem-soussi-HA"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center gap-3 p-6 rounded-lg hover:bg-blue-500/10 transition group"
+            >
+              <Github size={32} className="group-hover:text-blue-400 transition" />
+              <span className="text-sm font-semibold">GitHub</span>
+              <span className="text-xs text-slate-500 group-hover:text-slate-400">@hazem-soussi-HA</span>
+            </a>
 
-          <div className="flex justify-center gap-4 mt-10">
-            {[
-              { icon: Github, href: 'https://github.com/hazem-soussi-HA', label: 'GitHub' },
-              { icon: Linkedin, href: 'https://www.linkedin.com/in/hazem-soussi/', label: 'LinkedIn' },
-              { icon: ExternalLink, href: '#projects', label: 'Portfolio' },
-            ].map((social, i) => (
-              <motion.a
-                key={i}
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={social.label}
-                className="w-12 h-12 glass rounded-xl flex items-center justify-center text-slate-400 hover:text-cloud-cyan hover:border-cloud-cyan/40 transition-all duration-300"
-                whileHover={{ y: -4 }}
-              >
-                <social.icon size={20} />
-              </motion.a>
-            ))}
+            <a 
+              href="https://linkedin.com/in/hazem-soussi"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center gap-3 p-6 rounded-lg hover:bg-blue-500/10 transition group"
+            >
+              <Linkedin size={32} className="group-hover:text-blue-400 transition" />
+              <span className="text-sm font-semibold">LinkedIn</span>
+              <span className="text-xs text-slate-500 group-hover:text-slate-400">Connect</span>
+            </a>
+
+            <a 
+              href="mailto:hazem.soussi@gmail.com"
+              className="flex flex-col items-center gap-3 p-6 rounded-lg hover:bg-blue-500/10 transition group"
+            >
+              <Mail size={32} className="group-hover:text-blue-400 transition" />
+              <span className="text-sm font-semibold">Email</span>
+              <span className="text-xs text-slate-500 group-hover:text-slate-400">hazem.soussi@gmail.com</span>
+            </a>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
-  )
+  );
 }
-
-export default ContactSection

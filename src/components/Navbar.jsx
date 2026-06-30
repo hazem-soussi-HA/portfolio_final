@@ -1,21 +1,35 @@
-import { motion } from 'framer-motion'
+import { Menu, X } from 'lucide-react';
+import { useState } from 'react';
 
-const Navbar = () => {
+export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <motion.nav
-      className="fixed top-0 left-0 right-0 z-50 px-6 py-4"
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-    >
-      <div className="max-w-6xl mx-auto glass rounded-2xl px-6 py-3 flex items-center justify-between">
-        <span className="font-bold text-lg gradient-text">HS</span>
-        <div className="flex gap-6 text-sm text-slate-400">
-          <a href="#projects" className="hover:text-cloud-cyan transition-colors">Projects</a>
-          <a href="#contact" className="hover:text-cloud-cyan transition-colors">Contact</a>
+    <nav className="fixed top-0 w-full z-50 bg-gradient-to-b from-slate-950 via-slate-950 to-transparent">
+      <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+        <div className="text-xl font-bold gradient-text">Hazem Soussi</div>
+        
+        <div className="hidden md:flex gap-8 text-sm">
+          <a href="#tech" className="hover:text-blue-400 transition">Tech Stack</a>
+          <a href="#projects" className="hover:text-blue-400 transition">Projects</a>
+          <a href="#contact" className="hover:text-blue-400 transition">Contact</a>
         </div>
-      </div>
-    </motion.nav>
-  )
-}
 
-export default Navbar
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="md:hidden text-slate-400 hover:text-white"
+        >
+          {isOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </div>
+
+      {isOpen && (
+        <div className="md:hidden bg-slate-950 border-t border-white/5 py-4 px-6">
+          <a href="#tech" className="block py-2 hover:text-blue-400">Tech Stack</a>
+          <a href="#projects" className="block py-2 hover:text-blue-400">Projects</a>
+          <a href="#contact" className="block py-2 hover:text-blue-400">Contact</a>
+        </div>
+      )}
+    </nav>
+  );
+}

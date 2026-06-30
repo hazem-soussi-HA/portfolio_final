@@ -1,86 +1,53 @@
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { Terminal } from 'lucide-react';
 
-const TerminalSection = () => {
-  const [lines, setLines] = useState([])
-
-  useEffect(() => {
-    const cmds = [
-      '$ kubectl config use-context production-cluster',
-      'Switched to context "production-cluster".',
-      '$ kubectl apply -f deployment.yaml',
-      'deployment.apps/api-gateway created',
-      'service/api-gateway created',
-      '$ terraform plan -out=infra.tfplan',
-      'Terraform used the selected providers to generate execution plan.',
-      'Plan: 12 to add, 0 to change, 3 to destroy.',
-      '$ ansible-playbook -i inventory/ site.yml --diff',
-      'TASK [deploy app] *** changed: [web-01] => (delta)',
-      'TASK [configure monitoring] => ok: [monitor-01]',
-      '',
-      'Infrastructure ready. All systems operational.',
-    ]
-
-    let i = 0
-    const interval = setInterval(() => {
-      if (i < cmds.length) {
-        setLines(prev => [...prev, cmds[i]])
-        i++
-      } else {
-        clearInterval(interval)
-      }
-    }, 600)
-
-    return () => clearInterval(interval)
-  }, [])
-
+export default function TerminalSection() {
   return (
-    <section className="py-24 px-6">
+    <section className="py-24 px-6 relative">
       <div className="max-w-4xl mx-auto">
-        <motion.div
-          className="text-center mb-12"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="gradient-text">Expertise Terminal</span>
-          </h2>
-          <p className="text-slate-500">Watch infrastructure come alive</p>
-        </motion.div>
+        <div className="text-center mb-12">
+          <p className="text-xs text-blue-400 font-mono uppercase tracking-widest mb-4">Capabilities</p>
+          <h2 className="text-5xl font-bold mb-4">Engineering Excellence</h2>
+        </div>
 
-        <motion.div
-          className="glass rounded-2xl overflow-hidden"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <div className="flex items-center gap-2 px-4 py-3 bg-[#0c1021] border-b border-white/5">
-            <div className="w-3 h-3 rounded-full bg-red-500/80" />
-            <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
-            <div className="w-3 h-3 rounded-full bg-green-500/80" />
-            <span className="ml-2 text-xs text-slate-500 font-mono">terminal — hazem@cloud-infrastructure</span>
+        <div className="glass p-8 rounded-xl border border-blue-500/20 font-mono text-sm">
+          <div className="flex gap-2 mb-4">
+            <Terminal className="text-cyan-400" size={18} />
+            <span className="text-cyan-400">$ portfolio --show-expertise</span>
           </div>
-          <div className="p-6 font-mono text-sm leading-relaxed min-h-[280px]">
-            <AnimatePresence>
-               {lines.filter(Boolean).map((line, i) => (
-                 <motion.div
-                   key={i}
-                   initial={{ opacity: 0, x: -10 }}
-                   animate={{ opacity: 1, x: 0 }}
-                   transition={{ duration: 0.2 }}
-                   className={line?.startsWith('$') ? 'text-cloud-cyan' : 'text-slate-400'}
-                 >
-                   {line}
-                 </motion.div>
-               ))}
-            </AnimatePresence>
-            <span className="inline-block w-2 h-4 bg-cloud-cyan animate-pulse ml-1" />
+          
+          <div className="space-y-2 text-slate-300 text-xs md:text-sm">
+            <div>
+              <span className="text-green-400">✓</span> Kubernetes orchestration & autoscaling
+            </div>
+            <div>
+              <span className="text-green-400">✓</span> CI/CD pipeline design & optimization
+            </div>
+            <div>
+              <span className="text-green-400">✓</span> Infrastructure as Code (Terraform, Ansible)
+            </div>
+            <div>
+              <span className="text-green-400">✓</span> Cloud architecture (AWS, GCP, Azure)
+            </div>
+            <div>
+              <span className="text-green-400">✓</span> Security hardening & compliance
+            </div>
+            <div>
+              <span className="text-green-400">✓</span> Monitoring & observability stack
+            </div>
+            <div>
+              <span className="text-green-400">✓</span> Disaster recovery & business continuity
+            </div>
+            <div>
+              <span className="text-green-400">✓</span> Cost optimization strategies
+            </div>
           </div>
-        </motion.div>
+
+          <div className="mt-6 pt-4 border-t border-slate-700">
+            <div className="text-cyan-400">$ echo "Ready to architect your infrastructure"</div>
+            <div className="mt-2 text-green-400">success ✨</div>
+          </div>
+        </div>
       </div>
     </section>
-  )
+  );
 }
-
-export default TerminalSection
