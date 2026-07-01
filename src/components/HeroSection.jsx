@@ -57,7 +57,7 @@ export default function HeroSection() {
   const { t } = useI18n()
   return (
     <section
-      className="relative min-h-screen overflow-hidden px-4 sm:px-6"
+      className="relative min-h-screen flex flex-col px-4 sm:px-6"
       aria-label="Hero"
     >
       <MatrixRain />
@@ -87,23 +87,22 @@ export default function HeroSection() {
         className="absolute inset-0 flex items-center justify-center pointer-events-none select-none"
         aria-hidden="true"
       >
-        <div className="relative w-full h-full flex items-center justify-center">
-          <span
-            className="font-mono font-black text-[min(40vw,400px)] leading-none opacity-[0.015]"
-            style={{
-              background: 'linear-gradient(135deg, #00d4ff15, #00ff4115)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-              letterSpacing: '-0.05em',
-            }}
-          >
-            HS
-          </span>
-        </div>
+        <span
+          className="font-mono font-black text-[min(40vw,400px)] leading-none opacity-[0.015]"
+          style={{
+            background: 'linear-gradient(135deg, #00d4ff15, #00ff4115)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+            letterSpacing: '-0.05em',
+          }}
+        >
+          HS
+        </span>
       </div>
 
-      <div className="relative z-10 min-h-screen w-full flex flex-col items-center justify-center max-w-4xl mx-auto text-center">
+      {/* Centered content — flex-1 fills available space */}
+      <div className="flex-1 flex flex-col items-center justify-center w-full max-w-4xl mx-auto relative z-10 text-center">
         {/* Terminal prompt */}
         <motion.div
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-6 sm:mb-8 text-xs sm:text-sm font-mono text-cyan"
@@ -178,17 +177,18 @@ export default function HeroSection() {
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2"
-        animate={{ y: [0, 8, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-      >
-        <a href="#about" aria-label="Scroll to about section" className="flex flex-col items-center gap-2 text-slate-600 hover:text-cyan transition-colors">
-          <span className="text-[10px] font-mono uppercase tracking-widest">Scroll</span>
-          <ArrowDown size={16} />
-        </a>
-      </motion.div>
+      {/* Scroll indicator — pushed to bottom by flex-1 above, never clipped */}
+      <div className="flex justify-center pb-6 sm:pb-8 relative z-10">
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
+          <a href="#about" aria-label="Scroll to about section" className="flex flex-col items-center gap-2 text-slate-600 hover:text-cyan transition-colors">
+            <span className="text-[10px] font-mono uppercase tracking-widest">Scroll</span>
+            <ArrowDown size={16} />
+          </a>
+        </motion.div>
+      </div>
     </section>
   )
 }
