@@ -78,7 +78,7 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  className="px-4 py-2 text-sm text-slate-400 hover:text-cyan transition-colors rounded-lg hover:bg-white/5"
+                  className="px-3 py-2 text-sm text-slate-400 hover:text-cyan transition-colors rounded-lg hover:bg-white/5 whitespace-nowrap"
                 >
                   {link.label}
                 </a>

@@ -372,7 +372,7 @@ export default function ContactSection() {
                     t('contact.hint')
                   )}
                 </p>
-                <button type="submit" className="btn-primary text-sm">
+                <button type="submit" className="btn-primary text-sm min-w-[130px] justify-center">
                   <Send size={14} />
                   {t('contact.send')}
                 </button>
