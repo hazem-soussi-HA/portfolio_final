@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { skills } from '../data/projects'
+import { useI18n } from '../i18n'
 
 const levelColors = {
   expert: { bar: 'bg-cyan', text: 'text-cyan', width: 'w-full' },
@@ -8,8 +9,10 @@ const levelColors = {
   basic: { bar: 'bg-amber', text: 'text-amber', width: 'w-2/5' },
 }
 
-function SkillBar({ skill }) {
+function SkillBar({ skill, t }) {
   const style = levelColors[skill.level] || levelColors.intermediate
+  const levelKey = t(`skills.level.${skill.level}`, { returnObjects: true })
+  const levelLabel = typeof levelKey === 'string' ? levelKey : skill.level
   return (
     <div className="group">
       <div className="flex items-center justify-between mb-1.5">
@@ -17,7 +20,7 @@ function SkillBar({ skill }) {
           {skill.name}
         </span>
         <span className={`text-[10px] font-mono uppercase ${style.text}`}>
-          {skill.level}
+          {levelLabel}
         </span>
       </div>
       {skill.note && (
@@ -38,8 +41,9 @@ function SkillBar({ skill }) {
 }
 
 export default function SkillsSection() {
+  const { t } = useI18n()
   return (
-    <section id="skills" className="py-20 sm:py-28 px-4 sm:px-6 relative" aria-label="Compétences">
+    <section id="skills" className="py-20 sm:py-28 px-4 sm:px-6 relative" aria-label={t('skills.title')}>
       <div className="absolute top-0 left-0 right-0 section-divider" aria-hidden="true" />
 
       <div className="max-w-6xl mx-auto">
@@ -52,10 +56,10 @@ export default function SkillsSection() {
           transition={{ duration: 0.6 }}
         >
           <p className="font-mono text-xs text-amber uppercase tracking-widest mb-3">
-            // arsenal.log — level: public
+            {t('skills.subtitle')}
           </p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold">
-            <span className="gradient-text-mixed">Compétences</span>
+            <span className="gradient-text-mixed">{t('skills.title')}</span>
           </h2>
         </motion.div>
 
@@ -76,7 +80,7 @@ export default function SkillsSection() {
               </h3>
               <div className="space-y-4">
                 {skillList.map((skill) => (
-                  <SkillBar key={skill.name} skill={skill} />
+                  <SkillBar key={skill.name} skill={skill} t={t} />
                 ))}
               </div>
             </motion.div>

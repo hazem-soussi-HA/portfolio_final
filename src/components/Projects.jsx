@@ -11,14 +11,16 @@ import {
   Sparkles,
 } from 'lucide-react'
 import { projects, upcomingProjects } from '../data/projects'
+import { useI18n } from '../i18n'
 
 function ProjectCard({ project, index }) {
+  const { t } = useI18n()
   const [expanded, setExpanded] = useState(false)
 
   const statusColors = {
-    active: { bg: 'bg-cyan/10', text: 'text-cyan', border: 'border-cyan/20', label: 'Actif' },
-    completed: { bg: 'bg-matrix/10', text: 'text-matrix', border: 'border-matrix/20', label: 'Terminé' },
-    wip: { bg: 'bg-amber/10', text: 'text-amber', border: 'border-amber/20', label: 'En cours' },
+    active: { bg: 'bg-cyan/10', text: 'text-cyan', border: 'border-cyan/20', label: t('projects.status.active') },
+    completed: { bg: 'bg-matrix/10', text: 'text-matrix', border: 'border-matrix/20', label: t('projects.status.completed') },
+    wip: { bg: 'bg-amber/10', text: 'text-amber', border: 'border-amber/20', label: t('projects.status.wip') },
   }
   const status = statusColors[project.status] || statusColors.active
 
@@ -55,9 +57,9 @@ function ProjectCard({ project, index }) {
 
         {/* Tech tags */}
         <div className="flex flex-wrap gap-1.5 mb-4">
-          {project.tech.map((t) => (
-            <span key={t} className="tag tag-slate">
-              {t}
+          {project.tech.map((tech) => (
+            <span key={tech} className="tag tag-slate">
+              {tech}
             </span>
           ))}
         </div>
@@ -82,7 +84,7 @@ function ProjectCard({ project, index }) {
               {/* Highlights */}
               <div>
                 <h4 className="text-xs font-mono uppercase tracking-wider text-cyan mb-2 flex items-center gap-1.5">
-                  <Zap size={12} /> Points clés
+                  <Zap size={12} /> {t('projects.highlights')}
                 </h4>
                 <ul className="space-y-1.5">
                   {project.highlights.map((h) => (
@@ -97,7 +99,7 @@ function ProjectCard({ project, index }) {
               {/* Challenges / What I learned */}
               <div>
                 <h4 className="text-xs font-mono uppercase tracking-wider text-amber mb-2 flex items-center gap-1.5">
-                  <Sparkles size={12} /> Défis & apprentissages
+                  <Sparkles size={12} /> {t('projects.challenges')}
                 </h4>
                 <ul className="space-y-1.5">
                   {project.challenges.map((c) => (
@@ -121,13 +123,13 @@ function ProjectCard({ project, index }) {
           aria-expanded={expanded}
         >
           {expanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
-          {expanded ? 'Moins' : 'Plus de détails'}
+          {expanded ? t('projects.lessDetails') : t('projects.moreDetails')}
         </button>
 
         <div className="flex items-center gap-2">
           {project.private ? (
             <span className="inline-flex items-center gap-1.5 text-xs text-slate-600 font-mono">
-              <Lock size={12} /> Privé
+              <Lock size={12} /> {t('projects.private')}
             </span>
           ) : (
             <>
@@ -139,7 +141,7 @@ function ProjectCard({ project, index }) {
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono rounded-lg bg-white/5 text-slate-400 hover:text-cyan hover:bg-white/10 transition-all"
                   aria-label={`Source code for ${project.title}`}
                 >
-                  <Github size={12} /> Code
+                  <Github size={12} /> {t('projects.code')}
                 </a>
               )}
               {project.links?.demo && (
@@ -150,7 +152,7 @@ function ProjectCard({ project, index }) {
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono rounded-lg bg-cyan/10 text-cyan hover:bg-cyan/20 transition-all"
                   aria-label={`Live demo for ${project.title}`}
                 >
-                  <ExternalLink size={12} /> Démo
+                  <ExternalLink size={12} /> {t('projects.demo')}
                 </a>
               )}
             </>
@@ -162,11 +164,12 @@ function ProjectCard({ project, index }) {
 }
 
 export default function ProjectsSection() {
+  const { t } = useI18n()
   const featured = projects.filter((p) => p.featured)
   const other = projects.filter((p) => !p.featured)
 
   return (
-    <section id="projects" className="py-20 sm:py-28 px-4 sm:px-6 relative" aria-label="Projets">
+    <section id="projects" className="py-20 sm:py-28 px-4 sm:px-6 relative" aria-label={t('projects.title')}>
       <div className="absolute top-0 left-0 right-0 section-divider" aria-hidden="true" />
 
       <div className="max-w-6xl mx-auto">
@@ -179,14 +182,13 @@ export default function ProjectsSection() {
           transition={{ duration: 0.6 }}
         >
           <p className="font-mono text-xs text-matrix uppercase tracking-widest mb-3">
-            // artefacts.log — level: public
+            {t('projects.subtitle')}
           </p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-            <span className="gradient-text-matrix">Projets</span>
+            <span className="gradient-text-matrix">{t('projects.title')}</span>
           </h2>
           <p className="text-slate-500 max-w-xl mx-auto">
-            Chaque projet est un artefact — une pièce d'un système plus large
-            qui refuse d'être ordinaire.
+            {t('projects.description')}
           </p>
         </motion.div>
 
@@ -207,7 +209,7 @@ export default function ProjectsSection() {
               viewport={{ once: true }}
             >
               <span className="text-slate-600 font-mono text-sm">//</span>
-              Autres projets
+              {t('projects.otherProjects')}
             </motion.h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 mb-12">
               {other.map((project, i) => (
@@ -227,7 +229,7 @@ export default function ProjectsSection() {
           >
             <h3 className="text-lg font-bold text-slate-400 mb-6 flex items-center gap-2">
               <Clock size={16} className="text-amber" />
-              En cours & à venir
+              {t('projects.upcoming')}
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {upcomingProjects.map((p) => (
@@ -239,8 +241,8 @@ export default function ProjectsSection() {
                     <h4 className="font-semibold text-white text-sm mb-1">{p.title}</h4>
                     <p className="text-xs text-slate-500 mb-2">{p.description}</p>
                     <div className="flex flex-wrap gap-1.5">
-                      {p.tech.map((t) => (
-                        <span key={t} className="tag tag-amber">{t}</span>
+                      {p.tech.map((tech) => (
+                        <span key={tech} className="tag tag-amber">{tech}</span>
                       ))}
                     </div>
                   </div>

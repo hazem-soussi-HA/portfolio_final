@@ -1,10 +1,14 @@
 import { motion } from 'framer-motion'
 import { MapPin, Code2, Heart, Globe } from 'lucide-react'
+import { useI18n } from '../i18n'
 
 export default function AboutSection() {
+  const { t } = useI18n()
+  const tags = t('about.expertiseTags', { returnObjects: true })
+  const tagsArr = Array.isArray(tags) ? tags : ['Operating Systems', 'Game Development', 'Full-Stack Web', 'Artificial Intelligence', 'DevOps & Security', 'Kernel Programming']
+
   return (
-    <section id="about" className="py-20 sm:py-28 px-4 sm:px-6 relative" aria-label="À propos">
-      {/* Section divider */}
+    <section id="about" className="py-20 sm:py-28 px-4 sm:px-6 relative" aria-label={t('about.title')}>
       <div className="absolute top-0 left-0 right-0 section-divider" aria-hidden="true" />
 
       <div className="max-w-5xl mx-auto">
@@ -17,10 +21,10 @@ export default function AboutSection() {
           transition={{ duration: 0.6 }}
         >
           <p className="font-mono text-xs text-cyan uppercase tracking-widest mb-3">
-            // about.enc — level: public
+            {t('about.subtitle')}
           </p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold">
-            <span className="gradient-text-cyan">À propos</span>
+            <span className="gradient-text-cyan">{t('about.title')}</span>
           </h2>
         </motion.div>
 
@@ -33,15 +37,14 @@ export default function AboutSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            {/* Avatar placeholder with terminal aesthetic */}
+            {/* Photo */}
             <div className="relative w-48 h-48 sm:w-56 sm:h-56 rounded-2xl overflow-hidden mb-6 glass glow-cyan">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="font-mono text-5xl sm:text-6xl font-bold gradient-text-cyan">HS</div>
-                  <div className="font-mono text-[10px] text-slate-500 mt-2">shadow-builder</div>
-                </div>
-              </div>
-              {/* Scan line effect */}
+              <img
+                src="/hazem-photo.jpg"
+                alt={t('about.name')}
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
               <div
                 className="absolute inset-0 bg-gradient-to-b from-transparent via-cyan/5 to-transparent animate-scan-line pointer-events-none"
                 aria-hidden="true"
@@ -49,11 +52,11 @@ export default function AboutSection() {
             </div>
 
             <div className="text-center">
-              <h3 className="text-xl font-bold text-white mb-1">Hazem Soussi</h3>
-              <p className="text-sm text-slate-400 font-mono mb-3">OS Architect & Game Developer</p>
+              <h3 className="text-xl font-bold text-white mb-1">{t('about.name')}</h3>
+              <p className="text-sm text-slate-400 font-mono mb-3">{t('about.role')}</p>
               <div className="flex items-center justify-center gap-2 text-xs text-slate-500">
                 <MapPin size={12} />
-                <span>Tunisie → Monde</span>
+                <span>{t('about.location')}</span>
               </div>
             </div>
           </motion.div>
@@ -78,54 +81,28 @@ export default function AboutSection() {
                 <span className="text-cyan">$</span> cat /identity/whoami.txt
               </p>
               <p className="text-slate-400 mb-4">
-                Je suis Hazem Soussi, développeur full-stack et créateur de systèmes d'exploitation.
-                Basé en Tunisie, je conçois et construis des systèmes complets — du noyau OS au moteur de jeu,
-                de l'interface web à l'intelligence artificielle.
+                {t('about.whoami')}
               </p>
               <p className="text-slate-300 mb-3">
                 <span className="text-cyan">$</span> cat /identity/mission.txt
               </p>
               <p className="text-slate-400">
-                Ma mission : construire une technologie qui soigne, qui connecte, qui élève.
-                Chaque ligne de code est intentionnelle. Chaque projet est un acte de création
-                qui refuse d'être ordinaire.
+                {t('about.mission')}
               </p>
             </div>
 
             {/* Key values */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {[
-                {
-                  icon: Code2,
-                  title: 'Build',
-                  desc: 'OS, jeux, IA, full-stack — du kernel au pixel',
-                  color: 'cyan',
-                },
-                {
-                  icon: Heart,
-                  title: 'Heal',
-                  desc: 'La technologie comme thérapie, le jeu comme médecine',
-                  color: 'matrix',
-                },
-                {
-                  icon: Globe,
-                  title: 'Share',
-                  desc: 'Open source parce que le savoir appartient à tous',
-                  color: 'amber',
-                },
+                { icon: Code2, title: t('about.build'), desc: t('about.buildDesc'), color: 'cyan' },
+                { icon: Heart, title: t('about.heal'), desc: t('about.healDesc'), color: 'matrix' },
+                { icon: Globe, title: t('about.share'), desc: t('about.shareDesc'), color: 'amber' },
               ].map((item) => (
-                <div
-                  key={item.title}
-                  className="glass rounded-xl p-4 text-center glass-hover"
-                >
+                <div key={item.title} className="glass rounded-xl p-4 text-center glass-hover">
                   <item.icon
                     size={20}
                     className={`mx-auto mb-2 ${
-                      item.color === 'cyan'
-                        ? 'text-cyan'
-                        : item.color === 'matrix'
-                        ? 'text-matrix'
-                        : 'text-amber'
+                      item.color === 'cyan' ? 'text-cyan' : item.color === 'matrix' ? 'text-matrix' : 'text-amber'
                     }`}
                   />
                   <h4 className="font-semibold text-white text-sm mb-1">{item.title}</h4>
@@ -136,14 +113,7 @@ export default function AboutSection() {
 
             {/* Expertise tags */}
             <div className="flex flex-wrap gap-2">
-              {[
-                'Operating Systems',
-                'Game Development',
-                'Full-Stack Web',
-                'Artificial Intelligence',
-                'DevOps & Security',
-                'Kernel Programming',
-              ].map((tag) => (
+              {tagsArr.map((tag) => (
                 <span key={tag} className="tag tag-cyan">
                   {tag}
                 </span>

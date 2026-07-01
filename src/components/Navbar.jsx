@@ -1,17 +1,19 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, ChevronDown } from 'lucide-react'
-
-const navLinks = [
-  { href: '#about', label: 'À propos' },
-  { href: '#projects', label: 'Projets' },
-  { href: '#skills', label: 'Compétences' },
-  { href: '#contact', label: 'Contact' },
-]
+import { Menu, X, Globe } from 'lucide-react'
+import { useI18n } from '../i18n'
 
 export default function Navbar() {
+  const { t, lang, setLang } = useI18n()
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+
+  const navLinks = [
+    { href: '#about', label: t('nav.about') },
+    { href: '#projects', label: t('nav.projects') },
+    { href: '#skills', label: t('nav.skills') },
+    { href: '#contact', label: t('nav.contact') },
+  ]
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -35,6 +37,10 @@ export default function Navbar() {
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' })
     }
+  }
+
+  const toggleLang = () => {
+    setLang(lang === 'fr' ? 'en' : 'fr')
   }
 
   return (
@@ -77,12 +83,20 @@ export default function Navbar() {
                   {link.label}
                 </a>
               ))}
+              <button
+                onClick={toggleLang}
+                className="ml-2 p-2 text-slate-400 hover:text-cyan transition-colors rounded-lg hover:bg-white/5"
+                aria-label="Toggle language"
+              >
+                <Globe size={16} />
+                <span className="ml-1 text-xs font-mono font-semibold uppercase">{lang}</span>
+              </button>
               <a
                 href="#contact"
                 onClick={(e) => handleNavClick(e, '#contact')}
-                className="ml-2 px-5 py-2 text-sm font-semibold rounded-xl bg-cyan/10 text-cyan border border-cyan/20 hover:bg-cyan/20 hover:border-cyan/40 transition-all"
+                className="ml-1 px-5 py-2 text-sm font-semibold rounded-xl bg-cyan/10 text-cyan border border-cyan/20 hover:bg-cyan/20 hover:border-cyan/40 transition-all"
               >
-                Me contacter
+                {t('nav.contact')}
               </a>
             </div>
 
@@ -123,15 +137,25 @@ export default function Navbar() {
                   {link.label}
                 </motion.a>
               ))}
+              <motion.button
+                onClick={toggleLang}
+                className="flex items-center gap-2 px-5 py-2 text-lg font-mono font-semibold text-slate-400 hover:text-cyan transition-colors border border-white/10 rounded-xl"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.25 }}
+              >
+                <Globe size={18} />
+                {lang === 'fr' ? 'EN' : 'FR'}
+              </motion.button>
               <motion.a
                 href="#contact"
                 onClick={(e) => handleNavClick(e, '#contact')}
-                className="mt-4 px-8 py-3 text-lg font-semibold rounded-xl bg-cyan/10 text-cyan border border-cyan/20"
+                className="mt-2 px-8 py-3 text-lg font-semibold rounded-xl bg-cyan/10 text-cyan border border-cyan/20"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.35 }}
               >
-                Me contacter
+                {t('nav.contact')}
               </motion.a>
             </div>
           </motion.div>

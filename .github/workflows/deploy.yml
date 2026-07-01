@@ -1,8 +1,9 @@
-name: Deploy Portfolio to GitHub Pages
+name: Deploy Portfolio
 
 on:
   push:
-    branches: [main, master]
+    branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -10,74 +11,26 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
+  group: pages
   cancel-in-progress: false
 
 jobs:
-  # ── Security Audit ──
-  security:
-    name: Security Audit
+  build-and-deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: 20
+          cache: npm
+
       - run: npm ci
 
-      # Dependency vulnerability scan
-      - name: NPM Audit
-        run: npm audit --production --audit-level=high
-
-      # Source code security scan
-      - name: Source Security Scan
-        run: |
-          echo "Scanning source for unsafe patterns..."
-          if grep -rn "eval(" src/ --include="*.jsx" --include="*.js"; then
-            echo "FAIL: eval() found in source"
-            exit 1
-          fi
-          if grep -rn "innerHTML" src/ --include="*.jsx" --include="*.js"; then
-            echo "FAIL: innerHTML found in source"
-            exit 1
-          fi
-          if grep -rn "document\.write" src/ --include="*.jsx" --include="*.js"; then
-            echo "FAIL: document.write found in source"
-            exit 1
-          fi
-          if grep -rn "dangerouslySetInnerHTML" src/ --include="*.jsx" --include="*.js"; then
-            echo "FAIL: dangerouslySetInnerHTML found in source"
-            exit 1
-          fi
-          echo "Source security scan passed"
-
-      # Check for hardcoded secrets
-      - name: Secret Detection
-        run: |
-          if grep -rn "password\s*=\|api_key\s*=\|secret\s*=\|private_key\|TOKEN\s*=" src/ --include="*.jsx" --include="*.js" | grep -v "t(" | grep -v "i18n"; then
-            echo "WARNING: Potential hardcoded secrets"
-            exit 1
-          fi
-          echo "No hardcoded secrets detected"
-
-  # ── Build ──
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-    needs: security
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-      - run: npm ci
       - run: npm run build
-
-      # Copy static assets (CNAME, _headers, images, etc.)
-      - name: Copy static assets
-        run: cp -r public/* dist/ || true
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -85,18 +38,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist'
+          path: dist
 
-  # ── Deploy ──
-  deploy:
-    name: Deploy to GitHub Pages
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
-    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

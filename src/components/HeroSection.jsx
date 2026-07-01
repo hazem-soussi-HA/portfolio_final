@@ -1,6 +1,7 @@
 import { useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowDown, Terminal } from 'lucide-react'
+import { useI18n } from '../i18n'
 
 function MatrixRain() {
   const canvasRef = useRef(null)
@@ -53,6 +54,7 @@ function MatrixRain() {
 }
 
 export default function HeroSection() {
+  const { t } = useI18n()
   return (
     <section
       className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 sm:px-6"
@@ -99,12 +101,12 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.15 }}
         >
-          <span className="text-white">Building</span>
+          <span className="text-white">{t('hero.title1')}</span>
           <br />
-          <span className="gradient-text-cyan">Operating Systems</span>
+          <span className="gradient-text-cyan">{t('hero.title2')}</span>
           <br />
           <span className="text-white">& </span>
-          <span className="gradient-text-matrix">Digital Worlds</span>
+          <span className="gradient-text-matrix">{t('hero.title3')}</span>
         </motion.h1>
 
         {/* Subtitle */}
@@ -114,9 +116,9 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3 }}
         >
-          Hazem Soussi — OS Architect, Game Developer & Full-Stack Engineer.
+          {t('hero.subtitle')}
           <br className="hidden sm:block" />
-          <span className="text-slate-500">Tunisie → Monde</span>
+          <span className="text-slate-500">{t('hero.subtitle2')}</span>
         </motion.p>
 
         {/* CTA buttons */}
@@ -127,10 +129,10 @@ export default function HeroSection() {
           transition={{ duration: 0.7, delay: 0.45 }}
         >
           <a href="#projects" className="btn-primary">
-            Voir mes projets
+            {t('hero.cta.projects')}
           </a>
           <a href="#contact" className="btn-secondary">
-            Me contacter
+            {t('hero.cta.contact')}
           </a>
         </motion.div>
 
@@ -142,10 +144,10 @@ export default function HeroSection() {
           transition={{ duration: 0.7, delay: 0.6 }}
         >
           {[
-            { value: 'HAZOOM OS', label: 'Operating System' },
-            { value: 'MARIO GTA6', label: 'Game Engine' },
-            { value: '8+', label: 'Languages' },
-            { value: '70+', label: 'Apps Built' },
+            { value: 'HAZOOM OS', label: t('hero.stats.os') },
+            { value: 'MARIO GTA6', label: t('hero.stats.game') },
+            { value: '8+', label: t('hero.stats.languages') },
+            { value: '70+', label: t('hero.stats.apps') },
           ].map((stat) => (
             <div key={stat.label} className="glass rounded-xl px-3 py-3 sm:p-4 text-center">
               <div className="font-mono font-bold text-sm sm:text-base text-cyan">{stat.value}</div>
