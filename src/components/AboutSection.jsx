@@ -40,7 +40,7 @@ export default function AboutSection() {
             {/* Photo */}
             <div className="relative w-48 h-48 sm:w-56 sm:h-56 rounded-2xl overflow-hidden mb-6 glass glow-cyan">
               <img
-                src="/hazem-photo.jpg"
+                src={import.meta.env.BASE_URL + 'hazem-photo.jpg'}
                 alt={t('about.name')}
                 className="w-full h-full object-cover"
                 loading="lazy"
