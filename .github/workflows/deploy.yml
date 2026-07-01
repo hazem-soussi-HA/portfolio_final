@@ -75,6 +75,10 @@ jobs:
       - run: npm ci
       - run: npm run build
 
+      # Copy static assets (CNAME, _headers, images, etc.)
+      - name: Copy static assets
+        run: cp -r public/* dist/ || true
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 

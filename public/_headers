@@ -42,7 +42,7 @@
       ]
     },
     {
-      "source": "/assets/*",
+      "source": "/portfolio_final/assets/*",
       "headers": [
         {
           "key": "Cache-Control",
