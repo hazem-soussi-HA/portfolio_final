@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import Navbar from './components/Navbar'
 import HeroSection from './components/HeroSection'
 import AboutSection from './components/AboutSection'
@@ -5,6 +7,32 @@ import ProjectsSection from './components/Projects'
 import SkillsSection from './components/SkillsSection'
 import ContactSection from './components/ContactSection'
 import { useI18n } from './i18n'
+
+function FloatingHS() {
+  const [visible, setVisible] = useState(false)
+  useEffect(() => {
+    const onScroll = () => setVisible(window.scrollY > 400)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+  return (
+    <AnimatePresence>
+      {visible && (
+        <motion.button
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-xl glass glow-cyan flex items-center justify-center cursor-pointer group"
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.5 }}
+          whileHover={{ scale: 1.1 }}
+          aria-label="Scroll to top"
+        >
+          <span className="font-mono font-bold text-sm text-cyan group-hover:text-white transition-colors">HS</span>
+        </motion.button>
+      )}
+    </AnimatePresence>
+  )
+}
 
 function Footer() {
   const { t } = useI18n()
@@ -36,6 +64,7 @@ export default function App() {
         <SkillsSection />
         <ContactSection />
       </main>
+      <FloatingHS />
       <Footer />
     </div>
   )

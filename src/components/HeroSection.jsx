@@ -82,6 +82,27 @@ export default function HeroSection() {
         aria-hidden="true"
       />
 
+      {/* HS watermark */}
+      <div
+        className="absolute inset-0 flex items-center justify-center pointer-events-none select-none"
+        aria-hidden="true"
+      >
+        <div className="relative w-full h-full flex items-center justify-center">
+          <span
+            className="font-mono font-black text-[min(40vw,400px)] leading-none opacity-[0.015]"
+            style={{
+              background: 'linear-gradient(135deg, #00d4ff15, #00ff4115)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              letterSpacing: '-0.05em',
+            }}
+          >
+            HS
+          </span>
+        </div>
+      </div>
+
       <div className="relative z-10 max-w-4xl mx-auto text-center">
         {/* Terminal prompt */}
         <motion.div
