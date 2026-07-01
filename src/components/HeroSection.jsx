@@ -57,7 +57,7 @@ export default function HeroSection() {
   const { t } = useI18n()
   return (
     <section
-      className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 sm:px-6"
+      className="relative min-h-screen overflow-hidden px-4 sm:px-6"
       aria-label="Hero"
     >
       <MatrixRain />
@@ -103,7 +103,7 @@ export default function HeroSection() {
         </div>
       </div>
 
-      <div className="relative z-10 max-w-4xl mx-auto text-center">
+      <div className="relative z-10 min-h-screen w-full flex flex-col items-center justify-center max-w-4xl mx-auto text-center">
         {/* Terminal prompt */}
         <motion.div
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-6 sm:mb-8 text-xs sm:text-sm font-mono text-cyan"
