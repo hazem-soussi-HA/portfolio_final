@@ -1,16 +1,29 @@
-# React + Vite
+# portfolio_final — Hazem Soussi · Computer Science Engineer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal portfolio. Single-page React 19 + Vite + Tailwind. Dark, minimal, proof-driven.
 
-Currently, two official plugins are available:
+**Live:** https://hazem-soussi-HA.github.io/portfolio_final/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Claims policy
 
-## React Compiler
+Every claim on this page traces to a public repository, or it is explicitly
+labeled **private**. There is no simulated telemetry, no invented metrics,
+no dead links. If a project is private, it is shown as private — or not shown.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Local development
 
-## Expanding the ESLint configuration
+```bash
+npm ci
+npm run dev      # http://localhost:5173
+npm run lint     # eslint (flat config)
+npm run build    # production build → dist/
+npm run preview  # serve the production build
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Deploys to GitHub Pages via `.github/workflows/deploy.yml` on push to
+`refactor/modularize-infra` (base path `/portfolio_final/`).
+
+## License
+
+Source published for transparency; content (copy, identity, imagery) is
+© Hazem Soussi. All rights reserved.
