@@ -1,50 +1,28 @@
-import { Github, Linkedin, Mail, ExternalLink } from 'lucide-react';
+import { Github, Linkedin, Mail } from 'lucide-react';
+
+const channels = [
+  { icon: Github, label: 'GitHub', sub: '@hazem-soussi-HA', href: 'https://github.com/hazem-soussi-HA' },
+  { icon: Linkedin, label: 'LinkedIn', sub: 'hazem-soussi', href: 'https://linkedin.com/in/hazem-soussi' },
+  { icon: Mail, label: 'Email', sub: 'hazem.soussi@gmail.com', href: 'mailto:hazem.soussi@gmail.com' },
+];
 
 export default function ContactSection() {
   return (
-    <section id="contact" className="py-24 px-6 relative">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-12">
-          <p className="text-xs text-blue-400 font-mono uppercase tracking-widest mb-4">Get In Touch</p>
-          <h2 className="text-5xl font-bold mb-4">Let's Build Something Great</h2>
-          <p className="text-slate-400 text-lg">
-            Open to discussing infrastructure challenges, DevOps optimization, and cloud architecture.
-          </p>
-        </div>
+    <section id="contact" className="py-20 px-6 border-t border-white/5">
+      <div className="max-w-4xl mx-auto text-center">
+        <p className="font-mono text-xs text-blue-400 tracking-[0.35em] uppercase mb-3">Contact</p>
+        <h2 className="text-3xl sm:text-4xl font-bold mb-4">Let's build something defensible.</h2>
+        <p className="text-slate-400 mb-12">Open to infrastructure, platform and security conversations — on-prem first, cloud when it earns it.</p>
 
-        <div className="glass p-12 rounded-xl border border-blue-500/20">
-          <div className="flex flex-col md:flex-row gap-12 items-center justify-center">
-            <a 
-              href="https://github.com/hazem-soussi-HA"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex flex-col items-center gap-3 p-6 rounded-lg hover:bg-blue-500/10 transition group"
-            >
-              <Github size={32} className="group-hover:text-blue-400 transition" />
-              <span className="text-sm font-semibold">GitHub</span>
-              <span className="text-xs text-slate-500 group-hover:text-slate-400">@hazem-soussi-HA</span>
+        <div className="grid sm:grid-cols-3 gap-4">
+          {channels.map(({ icon: Icon, label, sub, href }) => (
+            <a key={label} href={href} target={href.startsWith('mailto') ? undefined : '_blank'} rel="noopener noreferrer"
+               className="glass glass-hover rounded-xl p-6 flex flex-col items-center gap-3 transition group">
+              <Icon size={28} className="text-slate-400 group-hover:text-blue-400 transition" />
+              <span className="font-semibold">{label}</span>
+              <span className="text-xs text-slate-500">{sub}</span>
             </a>
-
-            <a 
-              href="https://linkedin.com/in/hazem-soussi"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex flex-col items-center gap-3 p-6 rounded-lg hover:bg-blue-500/10 transition group"
-            >
-              <Linkedin size={32} className="group-hover:text-blue-400 transition" />
-              <span className="text-sm font-semibold">LinkedIn</span>
-              <span className="text-xs text-slate-500 group-hover:text-slate-400">Connect</span>
-            </a>
-
-            <a 
-              href="mailto:hazem.soussi@gmail.com"
-              className="flex flex-col items-center gap-3 p-6 rounded-lg hover:bg-blue-500/10 transition group"
-            >
-              <Mail size={32} className="group-hover:text-blue-400 transition" />
-              <span className="text-sm font-semibold">Email</span>
-              <span className="text-xs text-slate-500 group-hover:text-slate-400">hazem.soussi@gmail.com</span>
-            </a>
-          </div>
+          ))}
         </div>
       </div>
     </section>
