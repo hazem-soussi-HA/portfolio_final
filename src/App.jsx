@@ -4,7 +4,7 @@ import AboutSection from './components/AboutSection'
 import ServicesSection from './components/ServicesSection'
 import TechStack from './components/TechStack'
 import Projects from './components/Projects'
-import GameSection from './components/GameSection'
+import BasketballGame from './components/BasketballGame'
 import LabSection from './components/LabSection'
 import ContactSection from './components/ContactSection'
 
@@ -17,7 +17,7 @@ export default function App() {
       <ServicesSection />
       <TechStack />
       <Projects />
-      <GameSection />
+      <BasketballGame />
       <LabSection />
       <ContactSection />
 

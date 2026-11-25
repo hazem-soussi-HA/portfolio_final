@@ -25,7 +25,7 @@ export default function HeroSection() {
             Explore services <ArrowRight size={18} />
           </a>
           <a href="#play" className="px-6 py-3 border border-white/10 hover:border-blue-500/50 hover:text-white rounded-lg font-semibold text-slate-300 transition">
-            Play the game
+            Play hoops
           </a>
         </div>
       </div>
