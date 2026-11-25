@@ -1,5 +1,14 @@
 import { Code2, Cpu, Shield, Sparkles } from 'lucide-react';
 
+const capabilities = [
+  { code: 'AI', label: 'Local LLM pipelines & agents' },
+  { code: 'ALGO', label: 'Optimization & decision logic' },
+  { code: 'SEC', label: 'Least-privilege platforms' },
+  { code: 'SYS', label: 'Proxmox / LXC infrastructure' },
+  { code: 'WEB', label: 'Full-stack product delivery' },
+  { code: 'CI', label: 'GitHub Actions automation' },
+];
+
 const commitments = [
   {
     icon: Sparkles,
@@ -66,10 +75,19 @@ export default function Projects() {
       <div className="max-w-5xl mx-auto">
         <p className="font-mono text-xs text-blue-400 tracking-[0.35em] uppercase mb-3">Code & Commitment</p>
         <h2 className="text-3xl sm:text-4xl font-bold mb-4">Intelligence built through code.</h2>
-        <p className="text-slate-400 max-w-2xl mb-12">
+        <p className="text-slate-400 max-w-2xl mb-8">
           I don’t just talk about AI and engineering — I build it. This portfolio reflects my commitment
           to intelligent systems, solid algorithms, and hands-on development.
         </p>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-px bg-white/5 rounded-xl overflow-hidden border border-white/5 mb-10">
+          {capabilities.map(c => (
+            <div key={c.code} className="bg-[#060a14] px-4 py-5 text-center">
+              <p className="font-mono text-[11px] text-cyan-400 tracking-widest mb-1">{c.code}</p>
+              <p className="text-[10px] text-slate-500 leading-snug">{c.label}</p>
+            </div>
+          ))}
+        </div>
 
         <div className="grid md:grid-cols-2 gap-6">
           {commitments.map(({ icon: Icon, title, blurb, code, tags }) => (
