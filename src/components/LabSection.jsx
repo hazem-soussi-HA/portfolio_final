@@ -28,10 +28,10 @@ export default function LabSection() {
           ))}
         </dl>
 
-        <pre className="mt-8 glass rounded-xl p-5 font-mono text-[11px] sm:text-xs text-slate-400 overflow-x-auto">{`$ hazem --manifest
+        <pre className="mt-8 glass apex-panel rounded-xl p-5 font-mono text-[11px] sm:text-xs text-slate-400 overflow-x-auto">{`$ hazem --manifest
 role    computer science engineer
-domain  systems · security · intelligent infrastructure
-modus   offline-first · least privilege · measured claims
+focus   ai · algorithms · systems · intelligent infrastructure
+modus   practical solutions · secure defaults · measured delivery
 proof   every claim traces to a public repo, or it is labeled private
 $ exit
 ok.`}</pre>

@@ -1,88 +1,94 @@
-import { Github, ExternalLink, Lock } from 'lucide-react';
+import { Code2, Cpu, Shield, Sparkles } from 'lucide-react';
 
-const featured = [
+const commitments = [
   {
-    title: 'lumen-studio',
-    blurb: 'Browser-native 3D engine and editor written directly on WebGL / OpenGL ES — no engine, no framework, no bundler.',
-    tags: ['JavaScript', 'WebGL', 'OpenGL ES'],
-    link: 'https://github.com/hazem-soussi-HA/lumen-studio',
-    visibility: 'public',
+    icon: Sparkles,
+    title: 'AI & Intelligent Systems',
+    blurb: 'I build practical intelligence into products — local LLM workflows, agent-style automation, and decision logic designed for real constraints.',
+    code: `const response = await agent.run({
+  goal: user.intent,
+  tools: ["search", "analyze", "execute"],
+  constraints: { offlineFirst: true, auditable: true }
+});`,
+    tags: ['LLMs', 'Agents', 'Automation'],
   },
   {
-    title: 'nine-room',
-    blurb: 'Premium nine-ball billiards — custom fixed-step physics, adaptive AI opponent, synthesized audio. MIT-licensed.',
-    tags: ['JavaScript', 'Canvas', 'Web Audio'],
-    link: 'https://github.com/hazem-soussi-HA/nine-room',
-    visibility: 'public',
+    icon: Shield,
+    title: 'Secure Platform Integration',
+    blurb: 'Real engineering from my private platform work: server-side API proxying, token isolation, and controlled service integration.',
+    code: `function pveProxy(req, res, apiPath, query) {
+  const options = {
+    hostname: PVE_HOST,
+    port: PVE_PORT,
+    path: '/api2/json' + apiPath + (query ? '?' + query : ''),
+    method: req.method,
+    rejectUnauthorized: false,
+  };
+  if (PVE_TOKEN) options.headers = { Authorization: 'PVEAPIToken=' + PVE_TOKEN };
+  return https.request(options, proxyRes => proxyRes.pipe(res));
+}`,
+    tags: ['Node.js', 'Security', 'Integration'],
   },
   {
-    title: 'amazon-expedition-3d',
-    blurb: 'First-person jungle adventure that runs entirely in the browser — every tree, river and bird generated at runtime. MIT.',
-    tags: ['JavaScript', 'Procedural', 'WebGL'],
-    link: 'https://github.com/hazem-soussi-HA/amazon-expedition-3d',
-    visibility: 'public',
+    icon: Cpu,
+    title: 'Algorithms & Engineering Logic',
+    blurb: 'Strong products need strong logic. I focus on algorithms, data flow, and system behavior that stays clear, measurable, and maintainable.',
+    code: `function prioritize(tasks, constraints) {
+  return tasks
+    .map(scoreByImpact(constraints))
+    .sort((a, b) => b.score - a.score)
+    .filter(withinBudget(constraints));
+}`,
+    tags: ['Algorithms', 'Optimization', 'Data flow'],
   },
   {
-    title: 'hazoom-dj-techno',
-    blurb: 'Generative techno engine — pure DSP, no samples, no libraries. A full DJ arrangement rendered to WAV in ~4s.',
-    tags: ['JavaScript', 'DSP', 'Audio synthesis'],
-    link: 'https://github.com/hazem-soussi-HA/hazoom-dj-techno',
-    visibility: 'public',
-  },
-  {
-    title: 'boutique-vetements-saas',
-    blurb: 'Tunisian apparel e-commerce platform — catalog, accounts and storefront. PHP / Symfony / Twig.',
-    tags: ['PHP', 'Symfony', 'Twig'],
-    link: 'https://github.com/hazem-soussi-HA/boutique-vetements-saas',
-    visibility: 'public',
-  },
-  {
-    title: 'HAZOOM ecosystem',
-    blurb: 'Private product platform: HAZOOM FM (AI radio with a cryptographically verifiable broadcast ledger), REASON (intelligence spine + mesh registry, 56 services), and HAZOOM HUB (Symfony bridge to a private GitHub API — live repo inventory, always fresh).',
-    tags: ['Python', 'Symfony', 'Proxmox', 'k8s'],
-    link: null,
-    visibility: 'private',
+    icon: Code2,
+    title: 'Automated Delivery & GitHub Actions',
+    blurb: 'I ship fast and share publicly when possible — vibe coding across projects, automated with GitHub Actions for build, test, and deployment workflows.',
+    code: `name: build-and-deploy
+on:
+  push:
+    branches: [main]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm ci && npm run build
+      - uses: actions/deploy-pages@v4`,
+    tags: ['GitHub Actions', 'CI/CD', 'Public delivery'],
   },
 ];
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-20 px-6 border-t border-white/5">
+    <section id="projects" className="py-20 px-6 border-t border-white/5 section-grid">
       <div className="max-w-5xl mx-auto">
-        <p className="font-mono text-xs text-blue-400 tracking-[0.35em] uppercase mb-3">Work</p>
-        <div className="flex items-end justify-between gap-6 flex-wrap mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold">Selected engineering.</h2>
-          <a href="https://github.com/hazem-soussi-HA?tab=repositories" target="_blank" rel="noopener noreferrer" className="text-sm text-slate-400 hover:text-white transition inline-flex items-center gap-2">
-            All repositories <Github size={16} />
-          </a>
-        </div>
+        <p className="font-mono text-xs text-blue-400 tracking-[0.35em] uppercase mb-3">Code & Commitment</p>
+        <h2 className="text-3xl sm:text-4xl font-bold mb-4">Intelligence built through code.</h2>
+        <p className="text-slate-400 max-w-2xl mb-12">
+          I don’t just talk about AI and engineering — I build it. This portfolio reflects my commitment
+          to intelligent systems, solid algorithms, and hands-on development.
+        </p>
 
         <div className="grid md:grid-cols-2 gap-6">
-          {featured.map(p => (
-            <article key={p.title} className="glass glass-hover rounded-xl p-6 flex flex-col transition">
-              <div className="flex items-start justify-between gap-3 mb-3">
-                <h3 className="text-lg font-bold leading-snug">{p.title}</h3>
-                {p.visibility === 'private'
-                  ? <span className="inline-flex items-center gap-1 text-[10px] font-mono px-2 py-1 rounded border border-amber-500/30 text-amber-400"><Lock size={11} /> PRIVATE</span>
-                  : <span className="text-[10px] font-mono px-2 py-1 rounded border border-green-500/30 text-green-400">PUBLIC</span>}
+          {commitments.map(({ icon: Icon, title, blurb, code, tags }) => (
+            <article key={title} className="glass glass-hover apex-panel rounded-xl p-6 flex flex-col transition">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
+                  <Icon size={20} className="text-blue-400" />
+                </div>
+                <h3 className="text-lg font-bold leading-snug">{title}</h3>
               </div>
 
-              <p className="text-sm text-slate-400 leading-relaxed mb-4">{p.blurb}</p>
+              <p className="text-sm text-slate-400 leading-relaxed mb-4">{blurb}</p>
 
-              <div className="flex flex-wrap gap-2 mb-5">
-                {p.tags.map(t => <span key={t} className="text-[10px] px-2 py-1 rounded bg-blue-500/10 text-blue-300">{t}</span>)}
-              </div>
+              <pre className="text-[11px] sm:text-xs font-mono text-slate-300 bg-[#05070d] border border-white/5 rounded-lg p-4 overflow-x-auto mb-4">
+                <code>{code}</code>
+              </pre>
 
-              <div className="mt-auto pt-4 border-t border-white/5">
-                {p.link ? (
-                  <a href={p.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-blue-400 hover:text-blue-300 transition">
-                    View source <ExternalLink size={14} />
-                  </a>
-                ) : (
-                  <a href="#contact" className="inline-flex items-center gap-2 text-sm text-amber-400/90 hover:text-amber-300 transition">
-                    Case study on request <ExternalLink size={14} />
-                  </a>
-                )}
+              <div className="flex flex-wrap gap-2 mt-auto">
+                {tags.map(t => <span key={t} className="text-[10px] px-2 py-1 rounded bg-blue-500/10 text-blue-300">{t}</span>)}
               </div>
             </article>
           ))}

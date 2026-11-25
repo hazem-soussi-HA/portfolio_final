@@ -1,27 +1,27 @@
 export default function AboutSection() {
   const pillars = [
     {
-      title: 'Systems first',
-      body: 'Every feature sits on a system I can name and measure — virtualization, networking, storage, process isolation. I don\'t hand-wave the layers underneath.',
-      tags: ['Proxmox VE', 'KVM / LXC', 'Linux', 'nginx'],
+      title: 'AI & algorithms, applied',
+      body: 'I apply AI and algorithmic thinking where they create real value — from LLM-powered workflows and intelligent automation to custom logic designed around performance, reliability, and context.',
+      tags: ['LLMs & agents', 'Algorithms', 'Automation', 'Data-driven logic'],
     },
     {
-      title: 'Security is a constraint, not a feature',
-      body: 'Offline-first modes, least-privilege defaults, mesh allowlists, credential gating and audit-before-merge. If it isn\'t measured, it doesn\'t ship.',
-      tags: ['Offline-first', 'Least privilege', 'Allowlisting', 'Audits'],
+      title: 'Engineering with rigor',
+      body: 'As a Computer Science Engineer, I build from solid foundations: clean architecture, secure defaults, measurable behavior, and systems I can explain from interface to infrastructure.',
+      tags: ['System design', 'Security', 'Performance', 'Maintainability'],
     },
     {
       title: 'Proof over claims',
-      body: 'Everything linked here is reproducible from a public repository or explicitly labeled private. No invented metrics, no decorative telemetry.',
-      tags: ['Measured inventories', 'MIT where open', 'Private stays private'],
+      body: 'Public work is linked to repositories, and private work is clearly labeled. I focus on deliverables, reproducible engineering, and outcomes that hold up under scrutiny.',
+      tags: ['Public repos', 'Private case studies', 'Measured delivery'],
     },
   ];
 
   return (
     <section id="about" className="py-20 px-6 border-t border-white/5">
       <div className="max-w-5xl mx-auto">
-        <p className="font-mono text-xs text-blue-400 tracking-[0.35em] uppercase mb-3">How I work</p>
-        <h2 className="text-3xl sm:text-4xl font-bold mb-12">Three principles, zero decoration.</h2>
+        <p className="font-mono text-xs text-blue-400 tracking-[0.35em] uppercase mb-3">About</p>
+        <h2 className="text-3xl sm:text-4xl font-bold mb-12">Computer science, applied with intent.</h2>
 
         <div className="grid md:grid-cols-3 gap-6">
           {pillars.map(p => (
