@@ -248,6 +248,13 @@ p, h1, h2, h3 { margin: 0; }
 .project-year { font-size: .8rem; color: var(--muted-2); }
 .project-card h3 { font-size: 1.15rem; font-weight: 650; margin-bottom: .65rem; letter-spacing: -0.01em; }
 .project-card p { color: var(--muted); font-size: .92rem; line-height: 1.7; margin-bottom: 1.25rem; flex: 1; }
+.project-links { display: flex; gap: .75rem; margin-top: 1.25rem; flex-wrap: wrap; }
+.project-links a {
+  font-size: .82rem; font-weight: 600; color: var(--accent); padding: .45rem .8rem;
+  border-radius: 8px; background: rgba(94,234,212,0.08); border: 1px solid rgba(94,234,212,0.18);
+  transition: .2s;
+}
+.project-links a:hover { background: rgba(94,234,212,0.14); transform: translateY(-1px); }
 
 /* Education */
 .education-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
