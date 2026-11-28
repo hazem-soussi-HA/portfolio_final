@@ -1,10 +1,12 @@
-const CACHE_NAME = 'hs-portfolio-v2';
+const CACHE_NAME = 'hs-portfolio-v3';
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
   './script.js',
   './manifest.webmanifest',
+  './cv.html',
+  './og-image.png',
   './icons/icon-192.png',
   './icons/icon-512.png'
 ];
